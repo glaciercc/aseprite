@@ -95,9 +95,10 @@ jobs:
       shell: bash
       run: |
         cd build && ninja
-    - uses: actions/upload-artifact@v4
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
       with:
-        name: aseprite-demo
+        name: aseprite-demo-${{ github.run_number }}
         path: |
           libcrypto-1_1-x64.dll
           ./build/bin/data
