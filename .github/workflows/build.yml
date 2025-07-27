@@ -8,7 +8,7 @@ jobs:
       matrix:
         os: [windows-latest]
         build_type: [Release]
-        ui: [on]
+        ui: [gui]
         scripting: [lua, noscripts]
         exclude:
           - build_type: Debug
@@ -95,8 +95,7 @@ jobs:
       shell: bash
       run: |
         cd build && ninja
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4
       with:
         name: aseprite-demo-${{ github.run_number }}
         path: |
