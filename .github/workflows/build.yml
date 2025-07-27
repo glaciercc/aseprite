@@ -78,8 +78,8 @@ jobs:
         fi
 
         export enable_ccache=off
-        curl -L https://github.com/blueloveTH/aseprite/releases/download/v0.01/skia.zip --output skia.zip
-        curl -L https://github.com/blueloveTH/aseprite/releases/download/v0.01/libcrypto-1_1-x64.dll --output libcrypto-1_1-x64.dll
+        curl -L https://github.com/blueloveTH/aseprite/releases/download/v1.0/skia.zip --output skia.zip
+        curl -L https://github.com/blueloveTH/aseprite/releases/download/v1.0/libcrypto-1_1-x64.dll --output libcrypto-1_1-x64.dll
         7z x -y skia.zip
 
         cmake -S . -B build -G Ninja \
