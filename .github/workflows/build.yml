@@ -7,28 +7,18 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        build_type: [Release]
+        build_type: [RelWithDebInfo]
         ui: [gui]
         scripting: [lua]
         exclude:
           - build_type: Debug
             ui: gui
           - build_type: RelWithDebInfo
-            ui: cli
-          - build_type: RelWithDebInfo
             scripting: noscripts
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
-    - name: Install Dependencies
-      if: runner.os == 'Linux'
-      shell: bash
-      run: |
-        sudo apt-get update -qq
-        sudo apt-get install -y \
-          libpixman-1-dev libfreetype6-dev libharfbuzz-dev zlib1g-dev \
-          libx11-dev libxcursor-dev libxi-dev libgl1-mesa-dev libfontconfig1-dev
     - name: Install Skia
       if: ${{ matrix.ui == 'gui' }}
       shell: bash
@@ -77,11 +67,6 @@ jobs:
           export skia_arch=x64
         fi
 
-        export enable_ccache=off
-        curl -L https://github.com/blueloveTH/aseprite/releases/download/v1.0/skia.zip --output skia.zip
-        curl -L https://github.com/blueloveTH/aseprite/releases/download/v1.0/libcrypto-1_1-x64.dll --output libcrypto-1_1-x64.dll
-        7z x -y skia.zip
-
         cmake -S . -B build -G Ninja \
           -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=10.9 \
@@ -97,8 +82,8 @@ jobs:
         cd build && ninja
     - uses: actions/upload-artifact@v4
       with:
-        name: aseprite-demo-${{ github.run_number }}
+        name: aseprite-${{ github.run_number }}
         path: |
           libcrypto-1_1-x64.dll
-          ./build/bin/data
-          ./build/bin/aseprite.exe
+          D:/a/aseprite/aseprite/build/bin/data
+          D:/a/aseprite/aseprite/build/bin/aseprite.exe
